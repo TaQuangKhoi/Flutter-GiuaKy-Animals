@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ta_quang_khoi_gk_animals/pages/choose_level_page.dart';
+import 'package:ta_quang_khoi_gk_animals/pages/start_page.dart';
 
 class AnimalsApp extends StatelessWidget {
   const AnimalsApp({super.key});
@@ -13,6 +14,10 @@ class AnimalsApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const ChooseLevelPage(title: 'Flutter Demo Home Page'),
+      routes: {
+        '/choose': (context) => const ChooseLevelPage(title: 'Choose Level'),
+        '/start': (context) => const StartPage(level: '',),
+      },
     );
   }
 }

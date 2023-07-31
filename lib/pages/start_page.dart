@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class StartPage extends StatefulWidget {
-  const StartPage({super.key});
+  final String level;
+  const StartPage({super.key, required this.level});
 
   @override
   State<StartPage> createState() => _StartPageState();
@@ -10,6 +13,7 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
+    log("StartPage: ${widget.level}");
     return const Placeholder();
   }
 }

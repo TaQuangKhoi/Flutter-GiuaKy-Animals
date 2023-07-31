@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:ta_quang_khoi_gk_animals/pages/start_page.dart';
 
 class ChooseLevelPage extends StatefulWidget {
   const ChooseLevelPage({super.key, required this.title});
@@ -27,6 +28,8 @@ class _ChooseLevelPageState extends State<ChooseLevelPage> {
 
   void chooseLevel(level) {
     log("chooseLevel: $level");
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => StartPage(level: level)));
   }
 
   @override
