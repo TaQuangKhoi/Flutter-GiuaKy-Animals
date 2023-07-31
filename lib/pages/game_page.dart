@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:ta_quang_khoi_gk_animals/models/animal_model.dart';
 import 'package:ta_quang_khoi_gk_animals/pages/result_page.dart';
 
+import '../utils.dart';
+
 class GamePage extends StatefulWidget {
   final String level;
 
@@ -36,13 +38,13 @@ class _GamePageState extends State<GamePage> {
 
   List<Animal> openedAnimals = [];
 
-  int point = 0;
+  late int point;
 
   late List<Widget> stack;
 
   Timer? timer;
 
-  int count = 0;
+  late int count;
 
   void _startTimer(int seconds) {
     count = seconds;
@@ -50,6 +52,7 @@ class _GamePageState extends State<GamePage> {
       setState(() {
         if (count > 0) {
           count--;
+          log("count: $count");
         } else {
           timer.cancel();
         }
@@ -60,13 +63,40 @@ class _GamePageState extends State<GamePage> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     for (int i = 0; i < 24; i++) {
       flipCardControllerList.add(FlipCardController());
     }
+    point = 0; // Initialize point
+    count = getTotalTime(widget.level); // Initialize time left
     stack = [
-      renderGrid(),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                "Time left: $count",
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "Point: $point",
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ],
+          ),
+          renderGrid()
+        ],
+      ),
     ];
+    _startTimer(count);
+    super.initState();
   }
 
   int getNumberOfAnimalTypes() {
@@ -116,6 +146,24 @@ class _GamePageState extends State<GamePage> {
     }
   }
 
+  void addPoint() {
+    setState(() {
+      point += 10;
+      log("point: $point");
+    });
+  }
+
+  void removePoint() {
+    setState(() {
+      point -= 5;
+      log("point: $point");
+    });
+  }
+
+  void onFlipDone(isFront) async {
+
+  }
+
   Widget renderGrid() {
     List<String> animalList = getAnimal();
     int numberOfMatches = 0;
@@ -160,7 +208,7 @@ class _GamePageState extends State<GamePage> {
                   if (openedAnimals[0].name == openedAnimals[1].name) {
                     log("Matched");
                     openedAnimals.clear();
-                    point += 10;
+                    addPoint();
                     numberOfMatches++;
 
                     if (numberOfMatches == 12) {
@@ -191,7 +239,7 @@ class _GamePageState extends State<GamePage> {
                     }
                   } else {
                     log("Not matched");
-                    point -= 5;
+                    removePoint();
 
                     // toggle all cards in openedAnimals
                     for (Animal animal in openedAnimals) {
