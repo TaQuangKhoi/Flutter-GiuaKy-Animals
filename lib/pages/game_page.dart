@@ -37,10 +37,7 @@ class _GamePageState extends State<GamePage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("A"),
-                ),
+                const Image(image: AssetImage("assets/images/bee.png")),
                 ElevatedButton(
                   onPressed: () {},
                   child: const Text("B"),
