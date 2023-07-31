@@ -34,6 +34,10 @@ class _GamePageState extends State<GamePage> {
 
   List<Animal> openedAnimals = [];
 
+  int point = 0;
+
+  late List<Widget> stack;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -41,6 +45,9 @@ class _GamePageState extends State<GamePage> {
     for (int i = 0; i < 24; i++) {
       flipCardControllerList.add(FlipCardController());
     }
+    stack = [
+      renderGrid(),
+    ];
   }
 
   int getNumberOfAnimalTypes() {
@@ -90,8 +97,9 @@ class _GamePageState extends State<GamePage> {
     }
   }
 
-  Widget? renderGrid() {
+  Widget renderGrid() {
     List<String> animalList = getAnimal();
+    int numberOfMatches = 0;
     List<Widget> row = [];
 
     for (int i = 0; i < 4; i++) {
@@ -133,13 +141,40 @@ class _GamePageState extends State<GamePage> {
                   if (openedAnimals[0].name == openedAnimals[1].name) {
                     log("Matched");
                     openedAnimals.clear();
+                    point += 10;
+                    numberOfMatches++;
 
+
+                    if (numberOfMatches == 12) {
+                      log("You win");
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text("You win"),
+                            content: Text("Your point: $point"),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("OK"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                   } else {
                     log("Not matched");
+                    point -= 5;
+
                     // toggle all cards in openedAnimals
                     for (Animal animal in openedAnimals) {
                       log("animal.index: ${animal.index}");
-                      await flipCardControllerList[animal.index-1].toggleCard();
+                      await flipCardControllerList[animal.index - 1]
+                          .toggleCard();
                     }
 
                     openedAnimals.clear();
@@ -168,6 +203,7 @@ class _GamePageState extends State<GamePage> {
   @override
   Widget build(BuildContext context) {
     log("getAnimal(): ${getAnimal()}");
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -175,7 +211,9 @@ class _GamePageState extends State<GamePage> {
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: renderGrid(),
+        child: Stack(
+          children: stack,
+        ),
       ),
     );
   }
