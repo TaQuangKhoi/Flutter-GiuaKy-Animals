@@ -8,12 +8,12 @@ class AnimalsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Animals Game',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ChooseLevelPage(title: 'Flutter Demo Home Page'),
+      home: const ChooseLevelPage(title: 'Choose Level'),
       routes: {
         '/choose': (context) => const ChooseLevelPage(title: 'Choose Level'),
         '/start': (context) => const StartPage(level: '',),
