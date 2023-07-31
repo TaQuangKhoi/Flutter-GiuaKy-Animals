@@ -66,7 +66,7 @@ class _StartPageState extends State<StartPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const GamePage()));
+                            builder: (context) => GamePage(level: widget.level,)));
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,

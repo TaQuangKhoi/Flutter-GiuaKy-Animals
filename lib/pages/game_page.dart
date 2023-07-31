@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage({super.key});
+  final String level;
+  const GamePage({super.key, required this.level});
 
   @override
   State<GamePage> createState() => _GamePageState();
