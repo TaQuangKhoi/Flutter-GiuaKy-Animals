@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class GamePage extends StatefulWidget {
   final String level;
+
   const GamePage({super.key, required this.level});
 
   @override
@@ -42,6 +43,7 @@ class _GamePageState extends State<GamePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Resolve This Game"),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Row(
