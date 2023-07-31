@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flip_card/flip_card.dart';
+import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 
 class GamePage extends StatefulWidget {
@@ -27,6 +28,15 @@ class _GamePageState extends State<GamePage> {
     "lion",
     "monkey",
   ];
+
+  late FlipCardController _flipCardController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _flipCardController = FlipCardController();
+  }
 
   int getNumberOfAnimalTypes() {
     switch (widget.level) {
@@ -76,6 +86,8 @@ class _GamePageState extends State<GamePage> {
             direction: FlipDirection.HORIZONTAL,
             // default
             side: CardSide.FRONT,
+            controller: _flipCardController,
+            // autoFlipDuration: const Duration(seconds: 1),
             // The side to initially display.
             front: const Image(
               height: 50,
