@@ -27,7 +27,6 @@ class _ChooseLevelPageState extends State<ChooseLevelPage> {
   TextStyle textStyle = const TextStyle(fontSize: 20, color: Colors.white);
 
   void chooseLevel(level) {
-    log("chooseLevel: $level");
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => StartPage(level: level)));
   }
