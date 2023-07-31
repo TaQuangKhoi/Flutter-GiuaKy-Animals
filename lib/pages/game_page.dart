@@ -24,6 +24,18 @@ class _GamePageState extends State<GamePage> {
     "monkey",
   ];
 
+  int getNumberOfAnimalTypes() {
+    switch (widget.level) {
+      case "easy":
+        return 4;
+      case "medium":
+        return 6;
+      case "hard":
+        return 12;
+      default:
+        return 4;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
