@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ta_quang_khoi_gk_animals/animals_app.dart';
 
 import 'package:ta_quang_khoi_gk_animals/main.dart';
 
