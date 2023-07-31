@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class GamePage extends StatefulWidget {
@@ -37,8 +39,26 @@ class _GamePageState extends State<GamePage> {
         return 4;
     }
   }
+
+  List<String> getAnimal() {
+    int numberOfAnimalTypes = getNumberOfAnimalTypes();
+
+    // get 4 animal types of animalTypesList
+    List<String> animalTypes = animalTypesList.sublist(0, numberOfAnimalTypes);
+    log("animalTypes: $animalTypes");
+
+    // Create 1d array with 24 elements filled with 6 animal types
+    List<String> animalList = [];
+    for (int i = 0; i < 24; i++) {
+      animalList.add(animalTypes[i % numberOfAnimalTypes]);
+    }
+
+    return animalList;
+  }
+
   @override
   Widget build(BuildContext context) {
+    log("getAnimal(): ${getAnimal()}");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
