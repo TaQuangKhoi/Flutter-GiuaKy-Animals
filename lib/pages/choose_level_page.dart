@@ -21,6 +21,9 @@ class ChooseLevelPage extends StatefulWidget {
 }
 
 class _ChooseLevelPageState extends State<ChooseLevelPage> {
+  ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      backgroundColor: Colors.green, fixedSize: const Size(200, 50));
+  TextStyle textStyle = const TextStyle(fontSize: 20, color: Colors.white);
 
   void chooseLevel(level) {
     log("chooseLevel: $level");
@@ -37,13 +40,37 @@ class _ChooseLevelPageState extends State<ChooseLevelPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            ElevatedButton(onPressed: () {chooseLevel("easy");}, child: const Text('Easy')),
-            ElevatedButton(onPressed: () {chooseLevel("medium");}, child: const Text('Medium')),
-            ElevatedButton(onPressed: () {chooseLevel("hard");}, child: const Text('Hard')),
+            ElevatedButton(
+                onPressed: () {
+                  chooseLevel("easy");
+                },
+                style: buttonStyle,
+                child: Text(
+                  'Easy',
+                  style: textStyle,
+                )),
+            ElevatedButton(
+                onPressed: () {
+                  chooseLevel("medium");
+                },
+                style: buttonStyle,
+                child: Text(
+                  'Medium',
+                  style: textStyle,
+                )),
+            ElevatedButton(
+                onPressed: () {
+                  chooseLevel("hard");
+                },
+                style: buttonStyle,
+                child: Text(
+                  'Hard',
+                  style: textStyle,
+                )),
           ],
         ),
       ),
-       // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
