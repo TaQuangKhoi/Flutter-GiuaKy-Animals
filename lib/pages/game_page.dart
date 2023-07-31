@@ -197,6 +197,7 @@ class _GamePageState extends State<GamePage> {
             onFlipDone: (isFront) async {
               // log("isFront: $isFront");
               if (isFront) {
+                final AudioPlayer audioPlayer = AudioPlayer();
                 Animal animal = Animal(
                   name: animalList[index - 1],
                   index: index,
@@ -205,14 +206,16 @@ class _GamePageState extends State<GamePage> {
                 openedAnimals.add(animal);
                 log("animal: $animal");
 
+                Source unMatchedAudioSource = DeviceFileSource("assets/audios/evil-laugh-49831.mp3");
+                await audioPlayer.play(unMatchedAudioSource);
+
                 if (openedAnimals.length == 2) {
                   if (openedAnimals[0].name == openedAnimals[1].name) {
                     log("Matched");
 
                     // Play sound
-                    final AudioPlayer audioPlayer = AudioPlayer();
-                    Source audioSource = UrlSource("//www.google.com/logos/fnbx/animal_sounds/cow.mp3");
-                    await audioPlayer.play(audioSource);
+                    Source matchAudioSource = UrlSource("//www.google.com/logos/fnbx/animal_sounds/cow.mp3");
+                    await audioPlayer.play(matchAudioSource);
 
                     openedAnimals.clear();
                     addPoint();
