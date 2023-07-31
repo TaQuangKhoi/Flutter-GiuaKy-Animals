@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:ta_quang_khoi_gk_animals/models/animal_model.dart';
 
 class GamePage extends StatefulWidget {
   final String level;
@@ -29,13 +30,17 @@ class _GamePageState extends State<GamePage> {
     "monkey",
   ];
 
-  late FlipCardController _flipCardController;
+  List<FlipCardController> flipCardControllerList = [];
+
+  List<Animal> openedAnimals = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _flipCardController = FlipCardController();
+    for (int i = 0; i < 24; i++) {
+      flipCardControllerList.add(FlipCardController());
+    }
   }
 
   int getNumberOfAnimalTypes() {
@@ -70,6 +75,21 @@ class _GamePageState extends State<GamePage> {
     return animalList;
   }
 
+  int getIndexOf24(i, j) {
+    switch (i) {
+      case 1:
+        return j + 1;
+      case 2:
+        return j + 1 + 6;
+      case 3:
+        return j + 1 + 12;
+      case 4:
+        return j + 1 + 18;
+      default:
+        return 50;
+    }
+  }
+
   Widget? renderGrid() {
     List<String> animalList = getAnimal();
     List<Widget> row = [];
@@ -78,7 +98,8 @@ class _GamePageState extends State<GamePage> {
       List<Widget> column = [];
 
       for (int j = 0; j < 6; j++) {
-        int index = (i + 1) * (j + 1);
+        int index = getIndexOf24(i + 1, j);
+        // log("index: $index");
         column.add(
           FlipCard(
             fill: Fill.fillBack,
@@ -86,7 +107,7 @@ class _GamePageState extends State<GamePage> {
             direction: FlipDirection.HORIZONTAL,
             // default
             side: CardSide.FRONT,
-            controller: _flipCardController,
+            controller: flipCardControllerList[index - 1],
             // autoFlipDuration: const Duration(seconds: 1),
             // The side to initially display.
             front: const Image(
@@ -97,6 +118,35 @@ class _GamePageState extends State<GamePage> {
               height: 50,
               image: AssetImage("assets/images/${animalList[index - 1]}.png"),
             ),
+            onFlipDone: (isFront) async {
+              // log("isFront: $isFront");
+              if (isFront) {
+                Animal animal = Animal(
+                  name: animalList[index - 1],
+                  index: index,
+                  sound: '',
+                );
+                openedAnimals.add(animal);
+                log("animal: $animal");
+
+                if (openedAnimals.length == 2) {
+                  if (openedAnimals[0].name == openedAnimals[1].name) {
+                    log("Matched");
+                    openedAnimals.clear();
+
+                  } else {
+                    log("Not matched");
+                    // toggle all cards in openedAnimals
+                    for (Animal animal in openedAnimals) {
+                      log("animal.index: ${animal.index}");
+                      await flipCardControllerList[animal.index-1].toggleCard();
+                    }
+
+                    openedAnimals.clear();
+                  }
+                }
+              }
+            },
           ),
         );
       }
