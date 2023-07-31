@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
@@ -207,6 +208,12 @@ class _GamePageState extends State<GamePage> {
                 if (openedAnimals.length == 2) {
                   if (openedAnimals[0].name == openedAnimals[1].name) {
                     log("Matched");
+
+                    // Play sound
+                    final AudioPlayer audioPlayer = AudioPlayer();
+                    Source audioSource = UrlSource("//www.google.com/logos/fnbx/animal_sounds/cow.mp3");
+                    await audioPlayer.play(audioSource);
+
                     openedAnimals.clear();
                     addPoint();
                     numberOfMatches++;
