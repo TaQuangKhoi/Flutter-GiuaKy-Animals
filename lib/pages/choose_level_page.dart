@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class ChooseLevelPage extends StatefulWidget {
@@ -19,12 +21,9 @@ class ChooseLevelPage extends StatefulWidget {
 }
 
 class _ChooseLevelPageState extends State<ChooseLevelPage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void chooseLevel(level) {
+    log("chooseLevel: $level");
   }
 
   @override
@@ -36,23 +35,15 @@ class _ChooseLevelPageState extends State<ChooseLevelPage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            ElevatedButton(onPressed: () {chooseLevel("easy");}, child: const Text('Easy')),
+            ElevatedButton(onPressed: () {chooseLevel("medium");}, child: const Text('Medium')),
+            ElevatedButton(onPressed: () {chooseLevel("hard");}, child: const Text('Hard')),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
