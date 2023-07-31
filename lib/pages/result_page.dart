@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'choose_level_page.dart';
+
 class ResultPage extends StatefulWidget {
   final String level;
   final int point;
+
   const ResultPage({super.key, required this.level, required this.point});
 
   @override
@@ -11,7 +14,6 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
-
   void updateBestPoint() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -39,31 +41,34 @@ class _ResultPageState extends State<ResultPage> {
     }
   }
 
-  Future<int> getBestPoint(level) async {
+  Future<int?> getBestPoint(level) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int bestPoint = 0;
-
     switch (level) {
       case "easy":
-        bestPoint = prefs.getInt("easyBestPoint") ?? 0;
-        break;
+        final int? bestPoint = prefs.getInt("easyBestPoint");
+        return bestPoint;
       case "medium":
-        bestPoint = prefs.getInt("mediumBestPoint") ?? 0;
-        break;
+        final int? bestPoint = prefs.getInt("mediumBestPoint");
+        return bestPoint;
       case "hard":
-        bestPoint = prefs.getInt("hardBestPoint") ?? 0;
-        break;
+        final int? bestPoint = prefs.getInt("hardBestPoint");
+        return bestPoint;
       default:
-        break;
+        return 0;
     }
+  }
 
-    return bestPoint;
+  int bestEasyPoint = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     updateBestPoint();
-
 
     return Scaffold(
       appBar: AppBar(
@@ -84,23 +89,24 @@ class _ResultPageState extends State<ResultPage> {
               style: const TextStyle(fontSize: 30),
             ),
             Text(
-              "EASY Best Point: ${getBestPoint('easy')} point",
+              "EASY Best Point:  point",
               style: const TextStyle(fontSize: 30),
             ),
             Text(
-              "MEDIUM Best Point: ${getBestPoint('easy')} point",
+              "MEDIUM Best Point:  point",
               style: const TextStyle(fontSize: 30),
             ),
             Text(
-              "HARD Best Point: ${getBestPoint('easy')} point",
+              "HARD Best Point:  point",
               style: const TextStyle(fontSize: 30),
             ),
             ElevatedButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => GamePage(level: widget.level,)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const ChooseLevelPage(title: 'Choose Level')));
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,

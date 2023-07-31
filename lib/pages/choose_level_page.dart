@@ -37,6 +37,7 @@ class _ChooseLevelPageState extends State<ChooseLevelPage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(

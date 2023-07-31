@@ -152,7 +152,7 @@ class _GamePageState extends State<GamePage> {
                         builder: (context) {
                           return AlertDialog(
                             title: const Text("You win"),
-                            content: Text("Press Finish to see Result"),
+                            content: const Text("Press Finish to see Result"),
                             actions: [
                               TextButton(
                                 onPressed: () {
