@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
 class GamePage extends StatefulWidget {
@@ -67,11 +68,23 @@ class _GamePageState extends State<GamePage> {
       List<Widget> column = [];
 
       for (int j = 0; j < 6; j++) {
-        int index = (i+1) * (j+1);
+        int index = (i + 1) * (j + 1);
         column.add(
-          Image(
-            height: 50,
-            image: AssetImage("assets/images/${animalList[index-1]}.png"),
+          FlipCard(
+            fill: Fill.fillBack,
+            // Fill the back side of the card to make in the same size as the front.
+            direction: FlipDirection.HORIZONTAL,
+            // default
+            side: CardSide.FRONT,
+            // The side to initially display.
+            front: const Image(
+              height: 50,
+              image: AssetImage("assets/images/cover.png"),
+            ),
+            back: Image(
+              height: 50,
+              image: AssetImage("assets/images/${animalList[index - 1]}.png"),
+            ),
           ),
         );
       }
