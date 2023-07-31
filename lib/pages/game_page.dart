@@ -4,6 +4,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:ta_quang_khoi_gk_animals/models/animal_model.dart';
+import 'package:ta_quang_khoi_gk_animals/pages/result_page.dart';
 
 class GamePage extends StatefulWidget {
   final String level;
@@ -152,14 +153,16 @@ class _GamePageState extends State<GamePage> {
                         builder: (context) {
                           return AlertDialog(
                             title: const Text("You win"),
-                            content: Text("Your point: $point"),
+                            content: Text("Press Finish to see Result"),
                             actions: [
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const ResultPage()));
                                 },
-                                child: const Text("OK"),
+                                child: const Text("Finish"),
                               ),
                             ],
                           );
@@ -218,3 +221,4 @@ class _GamePageState extends State<GamePage> {
     );
   }
 }
+
