@@ -145,7 +145,6 @@ class _GamePageState extends State<GamePage> {
                     point += 10;
                     numberOfMatches++;
 
-
                     if (numberOfMatches == 12) {
                       log("You win");
                       showDialog(
@@ -160,7 +159,10 @@ class _GamePageState extends State<GamePage> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const ResultPage()));
+                                          builder: (context) => ResultPage(
+                                                level: widget.level,
+                                                point: point,
+                                              )));
                                 },
                                 child: const Text("Finish"),
                               ),
@@ -221,4 +223,3 @@ class _GamePageState extends State<GamePage> {
     );
   }
 }
-
