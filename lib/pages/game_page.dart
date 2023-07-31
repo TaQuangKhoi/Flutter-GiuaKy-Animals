@@ -59,6 +59,37 @@ class _GamePageState extends State<GamePage> {
     return animalList;
   }
 
+  Widget? renderGrid() {
+    List<String> animalList = getAnimal();
+    List<Widget> row = [];
+
+    for (int i = 0; i < 4; i++) {
+      List<Widget> column = [];
+
+      for (int j = 0; j < 6; j++) {
+        int index = (i+1) * (j+1);
+        column.add(
+          Image(
+            height: 50,
+            image: AssetImage("assets/images/${animalList[index-1]}.png"),
+          ),
+        );
+      }
+
+      row.add(
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: column,
+        ),
+      );
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: row,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     log("getAnimal(): ${getAnimal()}");
@@ -69,92 +100,7 @@ class _GamePageState extends State<GamePage> {
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Image(image: AssetImage("assets/images/bee.png")),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("B"),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("C"),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("D"),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("A"),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("B"),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("C"),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("D"),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("A"),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("B"),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("C"),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("D"),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("A"),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("B"),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("C"),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("D"),
-                ),
-              ],
-            ),
-          ],
-        ),
+        child: renderGrid(),
       ),
     );
   }
