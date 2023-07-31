@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils.dart';
 import 'game_page.dart';
 
 class StartPage extends StatefulWidget {
@@ -25,19 +26,6 @@ class _StartPageState extends State<StartPage> {
     }
   }
 
-  int getTotalTime() {
-    switch (widget.level) {
-      case "easy":
-        return 150;
-      case "medium":
-        return 100;
-      case "hard":
-        return 50;
-      default:
-        return 50;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +46,7 @@ class _StartPageState extends State<StartPage> {
                 style: const TextStyle(fontSize: 30),
               ),
               Text(
-                "Total time: ${getTotalTime()} seconds",
+                "Total time: ${getTotalTime(widget.level)} seconds",
                 style: const TextStyle(fontSize: 30),
               ),
               ElevatedButton(
