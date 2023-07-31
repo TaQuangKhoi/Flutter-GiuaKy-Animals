@@ -9,7 +9,7 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  List<String> animalList = [
+  List<String> animalTypesList = [
     "bee",
     "bird",
     "cat",
