@@ -53,6 +53,9 @@ class _GamePageState extends State<GamePage> {
       animalList.add(animalTypes[i % numberOfAnimalTypes]);
     }
 
+    // Shuffle the 1d array
+    animalList.shuffle();
+
     return animalList;
   }
 
