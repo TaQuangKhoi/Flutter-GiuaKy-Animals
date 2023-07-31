@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flip_card/flip_card.dart';
@@ -38,6 +39,23 @@ class _GamePageState extends State<GamePage> {
   int point = 0;
 
   late List<Widget> stack;
+
+  Timer? timer;
+
+  int count = 0;
+
+  void _startTimer(int seconds) {
+    count = seconds;
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (count > 0) {
+          count--;
+        } else {
+          timer.cancel();
+        }
+      });
+    });
+  }
 
   @override
   void initState() {
